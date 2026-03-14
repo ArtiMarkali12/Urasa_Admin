@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
-import { bookletAPI } from '../../services/api';
-import './Booklet.css';
+import { useState, useEffect } from "react";
+import { bookletAPI } from "../../services/api";
+import "./Booklet.css";
+
+const API = import.meta.env.VITE_API_BASE_URL;
 
 const Booklets = () => {
   const [booklets, setBooklets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBooklet, setSelectedBooklet] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchBooklets();
@@ -18,19 +20,19 @@ const Booklets = () => {
       const response = await bookletAPI.getAll();
       setBooklets(response.data.data || []);
     } catch (error) {
-      console.error('Error fetching booklets:', error);
+      console.error("Error fetching booklets:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this booklet quote?')) {
+    if (window.confirm("Are you sure you want to delete this booklet quote?")) {
       try {
         await bookletAPI.delete(id);
-        setBooklets(booklets.filter(b => b._id !== id));
+        setBooklets(booklets.filter((b) => b._id !== id));
       } catch (error) {
-        console.error('Error deleting booklet:', error);
+        console.error("Error deleting booklet:", error);
       }
     }
   };
@@ -40,9 +42,14 @@ const Booklets = () => {
     setShowModal(true);
   };
 
-  const filteredBooklets = booklets.filter(booklet =>
-    booklet.customerDetails?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    booklet.customerDetails?.email?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredBooklets = booklets.filter(
+    (booklet) =>
+      booklet.customerDetails?.name
+        ?.toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      booklet.customerDetails?.email
+        ?.toLowerCase()
+        .includes(searchTerm.toLowerCase()),
   );
 
   return (
@@ -75,7 +82,9 @@ const Booklets = () => {
               <div key={booklet._id} className="booklet-card">
                 <div className="booklet-header">
                   <div className="booklet-id">#{booklet._id.slice(-6)}</div>
-                  <div className="booklet-date">{formatDate(booklet.createdAt)}</div>
+                  <div className="booklet-date">
+                    {formatDate(booklet.createdAt)}
+                  </div>
                 </div>
 
                 <div className="booklet-body">
@@ -96,11 +105,15 @@ const Booklets = () => {
                     </div>
                     <div className="detail-item">
                       <span className="detail-label">Orientation:</span>
-                      <span className="detail-value">{booklet.orientation}</span>
+                      <span className="detail-value">
+                        {booklet.orientation}
+                      </span>
                     </div>
                     <div className="detail-item">
                       <span className="detail-label">Pages:</span>
-                      <span className="detail-value">{booklet.interiorSpecifications?.numberOfPages || 'N/A'}</span>
+                      <span className="detail-value">
+                        {booklet.interiorSpecifications?.numberOfPages || "N/A"}
+                      </span>
                     </div>
                   </div>
 
@@ -112,10 +125,16 @@ const Booklets = () => {
                 </div>
 
                 <div className="booklet-actions">
-                  <button className="btn-view" onClick={() => handleView(booklet)}>
+                  <button
+                    className="btn-view"
+                    onClick={() => handleView(booklet)}
+                  >
                     👁️ View Details
                   </button>
-                  <button className="btn-delete" onClick={() => handleDelete(booklet._id)}>
+                  <button
+                    className="btn-delete"
+                    onClick={() => handleDelete(booklet._id)}
+                  >
                     🗑️ Delete
                   </button>
                 </div>
@@ -133,24 +152,30 @@ const Booklets = () => {
       {showModal && selectedBooklet && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setShowModal(false)}>×</button>
+            <button className="modal-close" onClick={() => setShowModal(false)}>
+              ×
+            </button>
             <h2>Booklet Quote Details</h2>
-            
+
             <div className="modal-body">
               <div className="modal-section">
                 <h3>Customer Information</h3>
                 <div className="info-grid">
                   <div>
-                    <strong>Name:</strong> {selectedBooklet.customerDetails?.name}
+                    <strong>Name:</strong>{" "}
+                    {selectedBooklet.customerDetails?.name}
                   </div>
                   <div>
-                    <strong>Email:</strong> {selectedBooklet.customerDetails?.email}
+                    <strong>Email:</strong>{" "}
+                    {selectedBooklet.customerDetails?.email}
                   </div>
                   <div>
-                    <strong>Phone:</strong> {selectedBooklet.customerDetails?.phone}
+                    <strong>Phone:</strong>{" "}
+                    {selectedBooklet.customerDetails?.phone}
                   </div>
                   <div>
-                    <strong>Address:</strong> {selectedBooklet.customerDetails?.address || 'N/A'}
+                    <strong>Address:</strong>{" "}
+                    {selectedBooklet.customerDetails?.address || "N/A"}
                   </div>
                 </div>
               </div>
@@ -158,25 +183,65 @@ const Booklets = () => {
               <div className="modal-section">
                 <h3>Booklet Specifications</h3>
                 <div className="info-grid">
-                  <div><strong>Quantity:</strong> {selectedBooklet.quantity}</div>
-                  <div><strong>Size:</strong> {selectedBooklet.bookSize}</div>
-                  <div><strong>Orientation:</strong> {selectedBooklet.orientation}</div>
-                  <div><strong>Binding:</strong> {selectedBooklet.bindingStyle?.bindingType || 'N/A'}</div>
-                  <div><strong>Cover Style:</strong> {selectedBooklet.bindingStyle?.coverStyle || 'N/A'}</div>
-                  <div><strong>Pages:</strong> {selectedBooklet.interiorSpecifications?.numberOfPages || 'N/A'}</div>
-                  <div><strong>Print Color:</strong> {selectedBooklet.interiorSpecifications?.printColor || 'N/A'}</div>
-                  <div><strong>Paper Weight:</strong> {selectedBooklet.interiorSpecifications?.paperWeight || 'N/A'}</div>
-                  <div><strong>Cover Finish:</strong> {selectedBooklet.interiorSpecifications?.coverFinish || 'N/A'}</div>
-                  <div><strong>Packaging:</strong> {selectedBooklet.packaging || 'N/A'}</div>
+                  <div>
+                    <strong>Quantity:</strong> {selectedBooklet.quantity}
+                  </div>
+                  <div>
+                    <strong>Size:</strong> {selectedBooklet.bookSize}
+                  </div>
+                  <div>
+                    <strong>Orientation:</strong> {selectedBooklet.orientation}
+                  </div>
+                  <div>
+                    <strong>Binding:</strong>{" "}
+                    {selectedBooklet.bindingStyle?.bindingType || "N/A"}
+                  </div>
+                  <div>
+                    <strong>Cover Style:</strong>{" "}
+                    {selectedBooklet.bindingStyle?.coverStyle || "N/A"}
+                  </div>
+                  <div>
+                    <strong>Pages:</strong>{" "}
+                    {selectedBooklet.interiorSpecifications?.numberOfPages ||
+                      "N/A"}
+                  </div>
+                  <div>
+                    <strong>Print Color:</strong>{" "}
+                    {selectedBooklet.interiorSpecifications?.printColor ||
+                      "N/A"}
+                  </div>
+                  <div>
+                    <strong>Paper Weight:</strong>{" "}
+                    {selectedBooklet.interiorSpecifications?.paperWeight ||
+                      "N/A"}
+                  </div>
+                  <div>
+                    <strong>Cover Finish:</strong>{" "}
+                    {selectedBooklet.interiorSpecifications?.coverFinish ||
+                      "N/A"}
+                  </div>
+                  <div>
+                    <strong>Packaging:</strong>{" "}
+                    {selectedBooklet.packaging || "N/A"}
+                  </div>
                 </div>
               </div>
 
               <div className="modal-section">
                 <h3>Timeline</h3>
                 <div className="info-grid">
-                  <div><strong>Order Date:</strong> {formatDate(selectedBooklet.timeline?.orderDate)}</div>
-                  <div><strong>Expected Date:</strong> {formatDate(selectedBooklet.timeline?.expectedDate)}</div>
-                  <div><strong>Delivery Date:</strong> {formatDate(selectedBooklet.timeline?.deliveryDate)}</div>
+                  <div>
+                    <strong>Order Date:</strong>{" "}
+                    {formatDate(selectedBooklet.timeline?.orderDate)}
+                  </div>
+                  <div>
+                    <strong>Expected Date:</strong>{" "}
+                    {formatDate(selectedBooklet.timeline?.expectedDate)}
+                  </div>
+                  <div>
+                    <strong>Delivery Date:</strong>{" "}
+                    {formatDate(selectedBooklet.timeline?.deliveryDate)}
+                  </div>
                 </div>
               </div>
 
@@ -192,8 +257,14 @@ const Booklets = () => {
                   <h3>Attached Files</h3>
                   <div className="files-list">
                     {selectedBooklet.files.map((file, index) => (
-                      <a key={index} href={`http://localhost:5000/${file}`} target="_blank" rel="noopener noreferrer" className="file-link">
-                        📎 {file.split('/').pop()}
+                      <a
+                        key={index}
+                        href={`${API}/${file}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="file-link"
+                      >
+                        📎 {file.split("/").pop()}
                       </a>
                     ))}
                   </div>
@@ -208,13 +279,13 @@ const Booklets = () => {
 };
 
 const formatDate = (date) => {
-  if (!date) return 'N/A';
-  return new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
+  if (!date) return "N/A";
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   });
 };
 

@@ -17,9 +17,9 @@ const Navbar = ({ toggleSidebar }) => {
   return (
     <header className="navbar">
       <div className="navbar-left">
-        <button className="menu-toggle" onClick={toggleSidebar}>
+        {/* <button className="menu-toggle" onClick={toggleSidebar}>
           <span className="hamburger"></span>
-        </button>
+        </button> */}
         <div className="page-title">
           <h1>Admin Panel</h1>
         </div>
