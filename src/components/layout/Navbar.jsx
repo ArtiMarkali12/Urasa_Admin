@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import './Navbar.css';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import "./Navbar.css";
 
 const Navbar = ({ toggleSidebar }) => {
   const navigate = useNavigate();
@@ -10,16 +10,16 @@ const Navbar = ({ toggleSidebar }) => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
     setShowProfileMenu(false);
   };
 
   return (
     <header className="navbar">
       <div className="navbar-left">
-        {/* <button className="menu-toggle" onClick={toggleSidebar}>
+        <button className="menu-toggle" onClick={toggleSidebar}>
           <span className="hamburger"></span>
-        </button> */}
+        </button>
         <div className="page-title">
           <h1>Admin Panel</h1>
         </div>
@@ -32,36 +32,44 @@ const Navbar = ({ toggleSidebar }) => {
         </div>
 
         <div className="profile-section">
-          <button 
-            className="profile-button" 
+          <button
+            className="profile-button"
             onClick={() => setShowProfileMenu(!showProfileMenu)}
           >
             <div className="profile-avatar">
-              {admin?.name?.charAt(0).toUpperCase() || 'A'}
+              {admin?.name?.charAt(0).toUpperCase() || "A"}
             </div>
             <div className="profile-info">
-              <span className="profile-name">{admin?.name || 'Admin'}</span>
-              <span className="profile-role">{admin?.role || 'Administrator'}</span>
+              <span className="profile-name">{admin?.name || "Admin"}</span>
+              <span className="profile-role">
+                {admin?.role || "Administrator"}
+              </span>
             </div>
-            <span className={`dropdown-arrow ${showProfileMenu ? 'rotate' : ''}`}>▼</span>
+            <span
+              className={`dropdown-arrow ${showProfileMenu ? "rotate" : ""}`}
+            >
+              ▼
+            </span>
           </button>
 
           {showProfileMenu && (
             <div className="profile-dropdown">
               <div className="dropdown-header">
                 <div className="dropdown-avatar">
-                  {admin?.name?.charAt(0).toUpperCase() || 'A'}
+                  {admin?.name?.charAt(0).toUpperCase() || "A"}
                 </div>
                 <div>
-                  <div className="dropdown-name">{admin?.name || 'Admin'}</div>
-                  <div className="dropdown-email">{admin?.email || 'admin@urasa.com'}</div>
+                  <div className="dropdown-name">{admin?.name || "Admin"}</div>
+                  <div className="dropdown-email">
+                    {admin?.email || "admin@urasa.com"}
+                  </div>
                 </div>
               </div>
               <div className="dropdown-divider"></div>
-              <button 
+              <button
                 className="dropdown-item"
                 onClick={() => {
-                  navigate('/profile');
+                  navigate("/profile");
                   setShowProfileMenu(false);
                 }}
               >

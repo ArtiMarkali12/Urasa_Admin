@@ -95,7 +95,7 @@ const Dashboard = () => {
                     <h3 className="stat-value">{stat.value}</h3>
                     <p className="stat-label">{stat.title}</p>
                   </div>
-                  <div className="stat-arrow">→</div>
+                  {/* <div className="stat-arrow">→</div> */}
                 </div>
               </Link>
             ))}

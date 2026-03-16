@@ -1,19 +1,24 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import Layout from './components/layout/Layout';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import Layout from "./components/layout/Layout";
 
 // Auth Pages
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
 
 // Dashboard & Pages
-import Dashboard from './pages/dashboard/Dashboard';
-import Booklets from './pages/booklet/Booklet';
-import Notebooks from './pages/notebook/Notebook';
+import Dashboard from "./pages/dashboard/Dashboard";
+import Booklets from "./pages/booklet/Booklet";
+import Notebooks from "./pages/notebook/Notebook";
 
-import Profile from './pages/profile/Profile';
+import Profile from "./pages/profile/Profile";
 
-import './App.css';
+import "./App.css";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -108,7 +113,7 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
-      
+
         <Route
           path="/profile"
           element={
@@ -121,8 +126,8 @@ function AppRoutes() {
         />
 
         {/* Default Route */}
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );
