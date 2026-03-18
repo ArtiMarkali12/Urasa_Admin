@@ -1,12 +1,24 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import "./Navbar.css";
 
-const Navbar = ({ toggleSidebar }) => {
+const Navbar = ({ toggleSidebar, isMobile }) => {
   const navigate = useNavigate();
   const { admin, logout } = useAuth();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const profileRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setShowProfileMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -17,9 +29,11 @@ const Navbar = ({ toggleSidebar }) => {
   return (
     <header className="navbar">
       <div className="navbar-left">
-        <button className="menu-toggle" onClick={toggleSidebar}>
-          <span className="hamburger"></span>
-        </button>
+        {isMobile && (
+          <button className="menu-toggle" onClick={toggleSidebar}>
+            <span className="hamburger"></span>
+          </button>
+        )}
         <div className="page-title">
           <h1>Admin Panel</h1>
         </div>
@@ -31,7 +45,7 @@ const Navbar = ({ toggleSidebar }) => {
           <span className="notification-badge">3</span>
         </div>
 
-        <div className="profile-section">
+        <div className="profile-section" ref={profileRef}>
           <button
             className="profile-button"
             onClick={() => setShowProfileMenu(!showProfileMenu)}
@@ -39,17 +53,6 @@ const Navbar = ({ toggleSidebar }) => {
             <div className="profile-avatar">
               {admin?.name?.charAt(0).toUpperCase() || "A"}
             </div>
-            <div className="profile-info">
-              <span className="profile-name">{admin?.name || "Admin"}</span>
-              <span className="profile-role">
-                {admin?.role || "Administrator"}
-              </span>
-            </div>
-            <span
-              className={`dropdown-arrow ${showProfileMenu ? "rotate" : ""}`}
-            >
-              ▼
-            </span>
           </button>
 
           {showProfileMenu && (
@@ -74,16 +77,16 @@ const Navbar = ({ toggleSidebar }) => {
                 }}
               >
                 <span className="dropdown-icon">👤</span>
-                Profile
+                <span>Profile</span>
               </button>
               <button className="dropdown-item">
                 <span className="dropdown-icon">⚙️</span>
-                Settings
+                <span>Settings</span>
               </button>
               <div className="dropdown-divider"></div>
               <button className="dropdown-item logout" onClick={handleLogout}>
                 <span className="dropdown-icon">🚪</span>
-                Logout
+                <span>Logout</span>
               </button>
             </div>
           )}

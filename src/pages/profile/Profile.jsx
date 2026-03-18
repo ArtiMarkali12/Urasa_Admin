@@ -243,18 +243,7 @@ const Profile = () => {
             </form>
           </div>
 
-          <div className="form-card danger-zone">
-            <div className="form-header">
-              <h3>⚠️ Danger Zone</h3>
-            </div>
-            <p className="danger-text">
-              Once you log out, you will need to enter your credentials to
-              access your account again.
-            </p>
-            <button className="btn-logout" onClick={handleLogout}>
-              🚪 Logout
-            </button>
-          </div>
+          
         </div>
       </div>
     </div>

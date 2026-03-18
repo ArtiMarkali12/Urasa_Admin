@@ -224,7 +224,7 @@
   background: transparent;
   font-family: "DM Sans", sans-serif;
   font-size: 15px;
-  font-weight: 700 !important;
+  font-weight: 800 !important;
   color: #333333;
   cursor: pointer;
   transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -317,7 +317,7 @@
     box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
-   width: 60vh;
+  width: 60vh;
 }
 
 .booklet-card:hover {
@@ -348,7 +348,6 @@
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid rgba(30, 46, 204, 0.12);
- 
 }
 
 .customer-avatar {
@@ -441,10 +440,11 @@
   font-size: 13px;
   font-weight: 600;
   font-family: "DM Sans", sans-serif;
-  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
   outline: none !important;
   box-shadow: none !important;
+  transform: none !important;
 }
 
 .action-btn:focus {
@@ -454,6 +454,7 @@
 
 .action-btn:active {
   outline: none !important;
+  transform: scale(0.96) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
@@ -464,7 +465,6 @@
 
 .action-btn.view-btn:hover {
   background: #059669;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
@@ -475,7 +475,6 @@
 
 .action-btn.edit-btn:hover {
   background: #d97706;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
 
@@ -486,7 +485,6 @@
 
 .action-btn.delete-btn:hover {
   background: #d41919;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
@@ -507,7 +505,12 @@
   height: auto;
   border-radius: 8px;
   font-weight: 600;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transform: none !important;
+}
+
+.action-btn.small:active {
+  transform: scale(0.96) !important;
 }
 
 .action-btn.small.edit {
@@ -518,7 +521,6 @@
 
 .action-btn.small.edit:hover {
   background: #f59e0b !important;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(251, 191, 36, 0.5);
 }
 
@@ -530,7 +532,6 @@
 
 .action-btn.small.delete:hover {
   background: #dc2626 !important;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
 }
 
@@ -664,15 +665,19 @@
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
   width: 100%;
+  transform: none !important;
 }
 
 .add-category-sidebar-btn:hover {
   background: #059669;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.add-category-sidebar-btn:active {
+  transform: scale(0.96) !important;
 }
 
 /* Right Side - Option Values Container */
@@ -783,16 +788,20 @@
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   gap: 8px;
+  transform: none !important;
 }
 
 .add-category-top-btn:hover {
   background: #059669;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.add-category-top-btn:active {
+  transform: scale(0.96) !important;
 }
 
 /* Add Option Form */
@@ -837,11 +846,12 @@
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   gap: 6px;
   outline: none !important;
+  transform: none !important;
 }
 
 .add-btn:focus {
@@ -851,8 +861,11 @@
 
 .add-btn:hover {
   background: #1a22b0;
-  transform: translateY(-1px);
   box-shadow: 0 4px 14px rgba(74, 106, 245, 0.35) !important;
+}
+
+.add-btn:active {
+  transform: scale(0.96) !important;
 }
 
 /* Options List */
@@ -1427,8 +1440,9 @@
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   outline: none !important;
+  transform: none !important;
 }
 
 .btn-cancel:focus {
@@ -1438,12 +1452,11 @@
 
 .btn-cancel:hover {
   background: #d41919 !important;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3) !important;
 }
 
 .btn-cancel:active {
-  transform: translateY(0);
+  transform: scale(0.96) !important;
   box-shadow: 0 2px 6px rgba(220, 38, 38, 0.2) !important;
 }
 
@@ -1457,11 +1470,12 @@
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   gap: 8px;
   outline: none !important;
+  transform: none !important;
 }
 
 .btn-save:focus {
@@ -1471,12 +1485,11 @@
 
 .btn-save:hover {
   background: #059669 !important;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
 }
 
 .btn-save:active {
-  transform: translateY(0);
+  transform: scale(0.96) !important;
   box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2) !important;
 }
 
@@ -1613,6 +1626,7 @@
   position: relative;
   overflow: hidden;
   outline: none !important;
+  transform: none !important;
 }
 
 .btn-simple-cancel:focus {
@@ -1638,7 +1652,6 @@
 
 .btn-simple-cancel:hover {
   background: #d41919 !important;
-  transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3) !important;
 }
 
@@ -1647,7 +1660,7 @@
 }
 
 .btn-simple-cancel:active {
-  transform: translateY(0);
+  transform: scale(0.96) !important;
   box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2) !important;
 }
 
@@ -1665,8 +1678,9 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3) !important;
   outline: none !important;
+  transform: none !important;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3) !important;
 }
 
 .btn-simple-create:focus {
@@ -1709,69 +1723,175 @@
 
 /* Remove old modal styles */
 
-/* Responsive */
-@media (max-width: 768px) {
+/* ============================================================
+   RESPONSIVE DESIGN - Mobile First Approach
+   ============================================================ */
+
+/* Tablet & Mobile - 1024px and below */
+@media (max-width: 1024px) {
   .booklets-page {
     padding: 0 0 40px;
   }
 
-  .page-header {
-    padding: 24px 16px 60px;
+  .book-header {
+    padding: 16px 20px;
+    margin-bottom: 40px;
   }
 
-  .page-header h1 {
-    font-size: 22px;
-  }
-
-  .page-icon {
-    font-size: 26px;
+  .book-header h1 {
+    font-size: 28px;
   }
 
   .main-tabs {
-    margin: -20px 16px 0;
-    width: calc(100% - 32px);
+    margin: -20px 20px 0;
+    width: calc(100% - 40px);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .main-tabs::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .main-tabs::-webkit-scrollbar-thumb {
+    background: #dce4ff;
+    border-radius: 2px;
   }
 
   .main-tab {
-    padding: 8px 16px;
-    font-size: 13px;
-  }
-
-  .tab-icon {
-    font-size: 13px;
+    padding: 10px 18px;
+    font-size: 14px;
   }
 
   .tab-content {
-    padding: 24px 16px 0;
+    padding: 30px 20px;
   }
 
+  .booklets-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+
+  .booklet-card {
+    width: 100%;
+  }
+
+  .manage-options-layout {
+    gap: 16px;
+  }
+
+  .options-tabs-container {
+    min-width: 180px;
+    max-width: 180px;
+  }
+
+  .all-options-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+
+  .modal-content {
+    margin-left: 50px;
+    margin-top: 50px;
+  }
+
+  .add-category-modal-simple {
+    margin-left: 50px;
+  }
+}
+
+/* Mobile - 768px and below */
+@media (max-width: 768px) {
+  .booklets-page {
+    padding: 0 0 30px;
+  }
+
+  /* Book Header */
+  .book-header {
+    padding: 14px 16px;
+    margin-bottom: 30px;
+    border-bottom-width: 2px;
+  }
+
+  .book-header h1 {
+    font-size: 24px;
+    letter-spacing: -0.5px;
+  }
+
+  /* Main Tabs - Full width scrollable */
+  .main-tabs {
+    margin: -15px 12px 0;
+    width: calc(100% - 24px);
+    border-radius: 14px;
+    padding: 5px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .main-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .main-tab {
+    padding: 9px 16px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  .tab-icon {
+    font-size: 14px;
+  }
+
+  /* Tab Content */
+  .tab-content {
+    padding: 24px 16px;
+  }
+
+  /* Search Bar */
   .search-bar {
     padding: 12px 16px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
+    border-radius: 14px;
+  }
+
+  .search-icon {
+    font-size: 18px;
   }
 
   .search-bar input {
     font-size: 14px;
   }
 
+  /* Booklets Grid - Single column */
   .booklets-grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
 
+  /* Booklet Card */
   .booklet-card {
-    border-radius: 12px;
+    width: 100%;
+    border-radius: 14px;
+  }
+
+  .card-badge {
+    top: 12px;
+    right: 12px;
+    font-size: 10px;
+    padding: 2px 6px;
   }
 
   .card-header {
     padding: 16px;
+    gap: 12px;
   }
 
   .customer-avatar {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     font-size: 16px;
   }
 
@@ -1785,6 +1905,16 @@
 
   .info-row {
     font-size: 13px;
+    gap: 8px;
+  }
+
+  .info-label {
+    min-width: 80px;
+  }
+
+  .files-badge {
+    font-size: 11px;
+    padding: 5px 10px;
   }
 
   .card-footer {
@@ -1792,49 +1922,37 @@
     flex-direction: column;
     gap: 12px;
     align-items: flex-start;
+    border-radius: 0 0 14px 14px;
+  }
+
+  .card-date {
+    font-size: 11px;
+    width: 100%;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(30, 46, 204, 0.12);
+    margin-bottom: 8px;
   }
 
   .card-actions {
     width: 100%;
-    justify-content: flex-start;
+    justify-content: space-between;
+    gap: 6px;
   }
 
   .action-btn {
-    padding: 8px 14px;
-    font-size: 12px;
-  }
-
-  /* Options Tabs - Horizontal Scroll */
-  .options-tabs-container {
-    min-width: 100%;
-    max-width: 100%;
-  }
-
-  .options-tabs {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    min-width: auto;
-    width: 100%;
-    padding: 8px;
-  }
-
-  .option-tab {
-    flex-shrink: 0;
+    flex: 1;
     padding: 8px 12px;
-    font-size: 13px;
+    font-size: 12px;
+    justify-content: center;
   }
 
-  .option-tab-icon {
-    font-size: 14px;
-  }
-
+  /* Manage Options Header */
   .manage-options-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
     padding: 14px 16px;
+    margin-bottom: 16px;
   }
 
   .manage-options-header h2 {
@@ -1848,25 +1966,62 @@
     font-size: 13px;
   }
 
-  .add-category-sidebar-btn {
-    width: 100%;
-    padding: 10px 16px;
+  /* Manage Options Layout - Stack vertically */
+  .manage-options-layout {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Options Tabs Container - Full width */
+  .options-tabs-container {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .options-tabs {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 8px;
+    gap: 6px;
+  }
+
+  .options-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .option-tab {
+    flex-shrink: 0;
+    padding: 9px 14px;
+    font-size: 13px;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+
+  .option-tab-icon {
+    font-size: 14px;
+  }
+
+  .option-tab-label {
     font-size: 13px;
   }
 
-  .manage-options-layout {
-    flex-direction: column;
-  }
-
+  /* Options Values Container */
   .options-values-container {
     width: 100%;
     padding: 16px;
+    border-radius: 14px;
   }
 
   .options-values-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
   }
 
   .options-values-header h2 {
@@ -1876,119 +2031,102 @@
   .options-values-actions {
     width: 100%;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
+  .options-count {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+
+  .delete-category-btn {
+    font-size: 11px;
+    padding: 7px 12px;
+    gap: 4px;
+  }
+
+  /* Add Option Form */
   .add-option-form {
     flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .option-input {
+    width: 100%;
+    padding: 11px 14px;
+    font-size: 14px;
+    border-radius: 10px;
   }
 
   .add-btn {
     width: 100%;
     justify-content: center;
+    padding: 11px 20px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  /* Options List */
+  .options-list {
+    gap: 6px;
   }
 
   .option-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+    padding: 12px 14px;
+    border-radius: 10px;
+  }
+
+  .option-text {
+    font-size: 13px;
+    width: 100%;
   }
 
   .option-actions {
     width: 100%;
     justify-content: flex-end;
+    gap: 6px;
   }
 
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .modal-content {
-    max-height: 95vh;
-    max-width: 95vw;
-    padding: 0;
-  }
-
-  .modal-header {
-    padding: 20px 16px;
-  }
-
-  .modal-header h2 {
-    font-size: 18px;
-  }
-
-  .modal-body {
-    padding: 20px 16px;
-  }
-
-  .modal-close {
-    top: 12px;
-    right: 12px;
-    width: 28px;
-    height: 28px;
-    font-size: 24px;
-  }
-
-  /* Edit Form Responsive */
-  .edit-form .modal-body {
-    padding: 16px;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
-
-  .form-group.full-width {
-    grid-column: 1 !important;
-  }
-
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    font-size: 13px;
-    padding: 9px 12px;
-  }
-
-  .form-group label {
-    font-size: 12px;
-  }
-
-  .modal-section {
-    margin-bottom: 20px;
-  }
-
-  .modal-section h3 {
-    font-size: 15px;
-  }
-
-  .section-icon {
-    font-size: 18px;
-  }
-
-  .modal-footer {
+  .edit-option-form {
     flex-direction: column;
-    padding: 16px;
-    gap: 10px;
+    gap: 8px;
+    width: 100%;
   }
 
-  .btn-save,
-  .btn-cancel {
+  .edit-option-form .option-input {
+    width: 100%;
+  }
+
+  .edit-option-form .action-btn {
     width: 100%;
     justify-content: center;
-    padding: 12px 20px;
-    font-size: 14px;
+  }
+
+  /* View Options Tab */
+  .view-options-header {
+    margin-bottom: 24px;
+  }
+
+  .view-options-header h2 {
+    font-size: 20px;
+  }
+
+  .view-options-header p {
+    font-size: 13px;
   }
 
   .all-options-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .option-category-card {
-    border-radius: 12px;
+    border-radius: 14px;
   }
 
   .category-header {
@@ -1996,55 +2134,701 @@
   }
 
   .category-header h3 {
-    font-size: 14px;
+    font-size: 15px;
+  }
+
+  .category-count {
+    font-size: 11px;
+    padding: 3px 8px;
   }
 
   .category-options-list {
     padding: 12px 16px;
+    max-height: 280px;
   }
 
+  .category-option-item {
+    padding: 11px 14px;
+    margin-bottom: 6px;
+    border-radius: 10px;
+  }
+
+  .category-option-text {
+    font-size: 13px;
+  }
+
+  .category-delete-btn {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  /* Modal Styles */
+  .modal-overlay {
+    padding: 10px;
+    align-items: flex-end;
+  }
+
+  .modal-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 95vh !important;
+    margin: 0 !important;
+    margin-bottom: 0 !important;
+    border-radius: 16px 16px 0 0 !important;
+    animation: modalSlideUp 0.3s ease !important;
+  }
+
+  @keyframes modalSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .modal-close {
+    top: 12px !important;
+    right: 12px !important;
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 22px !important;
+  }
+
+  .modal-header {
+    padding: 20px 16px 16px !important;
+    border-radius: 16px 16px 0 0 !important;
+  }
+
+  .modal-header h2 {
+    font-size: 18px !important;
+  }
+
+  .modal-body {
+    padding: 16px !important;
+  }
+
+  .modal-section {
+    margin-bottom: 20px;
+  }
+
+  .modal-section h3 {
+    font-size: 15px !important;
+  }
+
+  .section-icon {
+    font-size: 18px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .info-item .label {
+    font-size: 11px;
+  }
+
+  .info-item .value {
+    font-size: 13px;
+  }
+
+  .notes-text {
+    font-size: 13px;
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .file-link {
+    padding: 11px 14px;
+    border-radius: 10px;
+  }
+
+  .file-name {
+    font-size: 13px;
+  }
+
+  /* Edit Form */
+  .edit-form .modal-body {
+    padding: 16px !important;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .form-group {
+    gap: 5px;
+  }
+
+  .form-group label {
+    font-size: 12px !important;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 13px !important;
+    padding: 10px 12px !important;
+    border-radius: 10px !important;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    padding: 16px !important;
+    gap: 10px;
+    border-radius: 0 0 16px 16px !important;
+  }
+
+  .btn-save,
+  .btn-cancel {
+    width: 100% !important;
+    justify-content: center;
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+    border-radius: 10px !important;
+  }
+
+  /* Add Category Modal */
+  .add-category-modal-simple {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    max-height: 95vh !important;
+    border-radius: 16px 16px 0 0 !important;
+  }
+
+  .simple-modal-header {
+    padding: 18px 16px 14px !important;
+  }
+
+  .simple-modal-header h2 {
+    font-size: 17px !important;
+  }
+
+  .simple-modal-header p {
+    font-size: 11px !important;
+  }
+
+  .simple-form-body {
+    padding: 16px !important;
+  }
+
+  .simple-form-group {
+    margin-bottom: 12px !important;
+  }
+
+  .simple-form-group input {
+    padding: 9px 11px !important;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+  }
+
+  .simple-form-group label {
+    font-size: 12px !important;
+  }
+
+  .simple-form-group small {
+    font-size: 10px !important;
+  }
+
+  .simple-form-footer {
+    padding: 14px 16px !important;
+    gap: 8px !important;
+  }
+
+  .btn-simple-cancel,
+  .btn-simple-create {
+    padding: 11px 14px !important;
+    font-size: 12px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Toast Notifications */
   .toast-notification {
     min-width: auto;
-    max-width: calc(100% - 32px);
-    right: 16px;
-    top: 16px;
-    padding: 12px 16px;
+    max-width: calc(100% - 24px) !important;
+    right: 12px !important;
+    top: 12px !important;
+    padding: 12px 14px !important;
+    border-radius: 10px !important;
+  }
+
+  .toast-icon {
+    font-size: 18px;
   }
 
   .toast-message {
-    font-size: 13px;
+    font-size: 13px !important;
+  }
+
+  .toast-close {
+    width: 22px;
+    height: 22px;
+    font-size: 20px;
+  }
+
+  /* Loading & Empty States */
+  .loading-container {
+    padding: 40px 0;
+  }
+
+  .loading-spinner {
+    width: 32px;
+    height: 32px;
+  }
+
+  .empty-state {
+    padding: 50px 16px;
+  }
+
+  .empty-icon {
+    font-size: 56px;
+  }
+
+  .empty-state.small {
+    padding: 24px 16px;
+  }
+
+  .empty-state.small .empty-icon {
+    font-size: 42px;
   }
 }
 
+/* Small Mobile - 480px and below */
 @media (max-width: 480px) {
-  .page-header h1 {
-    font-size: 20px;
+  .book-header {
+    padding: 12px 14px;
+    margin-bottom: 24px;
+  }
+
+  .book-header h1 {
+    font-size: 22px;
+  }
+
+  .main-tabs {
+    margin: -12px 10px 0;
+    width: calc(100% - 20px);
+    padding: 4px;
   }
 
   .main-tab {
     padding: 8px 12px;
     font-size: 12px;
+    border-radius: 8px;
   }
 
-  .stat-card {
+  .tab-icon {
+    font-size: 13px;
+  }
+
+  .tab-content {
+    padding: 20px 12px;
+  }
+
+  .search-bar {
+    padding: 10px 14px;
+    margin-bottom: 16px;
+  }
+
+  .search-icon {
+    font-size: 17px;
+  }
+
+  .search-bar input {
+    font-size: 13px;
+  }
+
+  .booklets-grid {
+    gap: 14px;
+  }
+
+  .card-header {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .customer-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .customer-name {
+    font-size: 14px;
+  }
+
+  .card-body {
     padding: 14px;
   }
 
-  .stat-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
+  .info-row {
+    font-size: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
 
-  .stat-value {
-    font-size: 20px;
+  .info-label {
+    min-width: auto;
+    font-weight: 700;
   }
 
-  .modal-header h2 {
+  .info-value {
+    text-align: left;
+  }
+
+  .files-badge {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .card-footer {
+    padding: 12px 14px;
+  }
+
+  .card-date {
+    font-size: 10px;
+  }
+
+  .card-actions {
+    gap: 4px;
+  }
+
+  .action-btn {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+
+  .action-btn.small {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  /* Manage Options */
+  .manage-options-header {
+    padding: 12px 14px;
+  }
+
+  .manage-options-header h2 {
     font-size: 16px;
   }
 
-  .modal-section h3 {
+  .add-category-top-btn {
+    padding: 9px 14px;
+    font-size: 12px;
+  }
+
+  .options-tabs {
+    padding: 6px;
+    gap: 4px;
+  }
+
+  .option-tab {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .option-tab-icon {
+    font-size: 13px;
+  }
+
+  .option-tab-label {
+    font-size: 12px;
+  }
+
+  .options-values-container {
+    padding: 14px;
+  }
+
+  .options-values-header h2 {
+    font-size: 15px;
+  }
+
+  .options-count {
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+
+  .delete-category-btn {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+
+  .option-input {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .add-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .option-item {
+    padding: 10px 12px;
+  }
+
+  .option-text {
+    font-size: 12px;
+  }
+
+  /* View Options */
+  .view-options-header h2 {
+    font-size: 18px;
+  }
+
+  .view-options-header p {
+    font-size: 12px;
+  }
+
+  .all-options-grid {
+    gap: 14px;
+  }
+
+  .category-header {
+    padding: 12px 14px;
+  }
+
+  .category-header h3 {
     font-size: 14px;
+  }
+
+  .category-options-list {
+    padding: 10px 14px;
+  }
+
+  .category-option-item {
+    padding: 10px 12px;
+  }
+
+  .category-option-text {
+    font-size: 12px;
+  }
+
+  .category-delete-btn {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  /* Modals */
+  .modal-header {
+    padding: 18px 14px 14px !important;
+  }
+
+  .modal-header h2 {
+    font-size: 17px !important;
+  }
+
+  .modal-body {
+    padding: 14px !important;
+  }
+
+  .modal-section h3 {
+    font-size: 14px !important;
+    margin-bottom: 12px;
+  }
+
+  .section-icon {
+    font-size: 17px;
+  }
+
+  .info-item .label {
+    font-size: 10px;
+  }
+
+  .info-item .value {
+    font-size: 12px;
+  }
+
+  .notes-text {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .file-link {
+    padding: 10px 12px;
+  }
+
+  .file-icon {
+    font-size: 16px;
+  }
+
+  .file-name {
+    font-size: 12px;
+  }
+
+  .form-group label {
+    font-size: 11px !important;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 12px !important;
+    padding: 9px 11px !important;
+  }
+
+  .modal-footer {
+    padding: 14px !important;
+    gap: 8px !important;
+  }
+
+  .btn-save,
+  .btn-cancel {
+    padding: 11px 16px !important;
+    font-size: 13px !important;
+  }
+
+  /* Add Category Modal */
+  .simple-modal-header h2 {
+    font-size: 16px !important;
+  }
+
+  .simple-form-body {
+    padding: 14px !important;
+  }
+
+  .simple-form-group input {
+    padding: 8px 10px !important;
+    font-size: 12px !important;
+  }
+
+  .simple-form-group label {
+    font-size: 11px !important;
+  }
+
+  .simple-form-group small {
+    font-size: 9px !important;
+  }
+
+  .simple-form-footer {
+    padding: 12px 14px !important;
+  }
+
+  .btn-simple-cancel,
+  .btn-simple-create {
+    padding: 10px 12px !important;
+    font-size: 11px !important;
+  }
+
+  /* Toast */
+  .toast-notification {
+    padding: 10px 12px !important;
+    right: 10px !important;
+    top: 10px !important;
+  }
+
+  .toast-icon {
+    font-size: 16px;
+  }
+
+  .toast-message {
+    font-size: 12px !important;
+  }
+
+  .toast-close {
+    width: 20px;
+    height: 20px;
+    font-size: 18px;
+  }
+
+  /* Empty State */
+  .empty-state {
+    padding: 40px 12px;
+  }
+
+  .empty-icon {
+    font-size: 48px;
+  }
+
+  .empty-state.small {
+    padding: 20px 12px;
+  }
+
+  .empty-state.small .empty-icon {
+    font-size: 38px;
+  }
+}
+
+/* Extra Small - 360px and below */
+@media (max-width: 360px) {
+  .book-header h1 {
+    font-size: 20px;
+  }
+
+  .main-tab {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+
+  .customer-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .customer-name {
+    font-size: 13px;
+  }
+
+  .card-body {
+    padding: 12px;
+  }
+
+  .info-row {
+    font-size: 11px;
+  }
+
+  .action-btn {
+    padding: 6px 8px;
+    font-size: 10px;
+  }
+
+  .modal-header h2 {
+    font-size: 16px !important;
+  }
+
+  .modal-section h3 {
+    font-size: 13px !important;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 11px !important;
+  }
+}
+
+/* Landscape orientation for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .modal-overlay {
+    align-items: center;
+  }
+
+  .modal-content {
+    max-height: 90vh !important;
+    margin: 0 !important;
+  }
+
+  .modal-body {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .book-header {
+    padding: 10px 16px;
+  }
+
+  .book-header h1 {
+    font-size: 22px;
   }
 }

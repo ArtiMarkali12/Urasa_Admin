@@ -65,34 +65,6 @@ export const bookletAPI = {
 // Booklet Options APIs
 export const bookletOptionsAPI = {
   getAll: () => api.get("/booklet-quote/options"),
-  addBookSize: (data) => api.post("/booklet-quote/book-sizes", data),
-  updateBookSize: (index, data) =>
-    api.put(`/booklet-quote/book-sizes/${index}`, data),
-  deleteBookSize: (index) => api.delete(`/booklet-quote/book-sizes/${index}`),
-  addBindingType: (data) => api.post("/booklet-quote/binding-types", data),
-  updateBindingType: (index, data) =>
-    api.put(`/booklet-quote/binding-types/${index}`, data),
-  deleteBindingType: (index) =>
-    api.delete(`/booklet-quote/binding-types/${index}`),
-  addCoverStyle: (data) => api.post("/booklet-quote/cover-styles", data),
-  addPrintColor: (data) => api.post("/booklet-quote/print-colors", data),
-  addPaperWeight: (data) => api.post("/booklet-quote/paper-weights", data),
-  addPaperType: (data) => api.post("/booklet-quote/paper-types", data),
-  updatePaperType: (index, data) =>
-    api.put(`/booklet-quote/paper-types/${index}`, data),
-  deletePaperType: (index) => api.delete(`/booklet-quote/paper-types/${index}`),
-  addCoverFinish: (data) => api.post("/booklet-quote/cover-finishes", data),
-  updateCoverFinish: (index, data) =>
-    api.put(`/booklet-quote/cover-finishes/${index}`, data),
-  deleteCoverFinish: (index) =>
-    api.delete(`/booklet-quote/cover-finishes/${index}`),
-  addPageEdge: (data) => api.post("/booklet-quote/page-edges", data),
-  updatePageEdge: (index, data) =>
-    api.put(`/booklet-quote/page-edges/${index}`, data),
-  deletePageEdge: (index) => api.delete(`/booklet-quote/page-edges/${index}`),
-  addPackaging: (data) => api.post("/booklet-quote/packaging", data),
-  addSpecialFinishing: (data) =>
-    api.post("/booklet-quote/special-finishing", data),
   // Category management APIs
   addCategory: (data) => api.post("/booklet-quote/category", data),
   deleteCategory: (data) => api.delete("/booklet-quote/category", { data }),

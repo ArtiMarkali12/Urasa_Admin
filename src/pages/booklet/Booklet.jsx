@@ -175,31 +175,12 @@ const Booklets = () => {
     if (!newOptionValue.trim()) return;
 
     try {
-      const apiFunction = getOptionApiFunction("add");
-      let response;
-
-      // Check if it's a dynamic category (not in predefined list)
-      const predefinedCategories = [
-        "bookSizes",
-        "bindingTypes",
-        "coverStyles",
-        "printColors",
-        "paperWeights",
-        "paperTypes",
-        "coverFinishes",
-        "pageEdges",
-        "packaging",
-        "specialFinishing",
-      ];
-
-      if (predefinedCategories.includes(activeOptionsTab)) {
-        response = await apiFunction({ value: newOptionValue });
-      } else {
-        // For dynamic categories, pass the category name
-        response = await apiFunction(activeOptionsTab, {
+      const response = await bookletOptionsAPI.addGenericOption(
+        activeOptionsTab,
+        {
           value: newOptionValue,
-        });
-      }
+        },
+      );
 
       setNewOptionValue("");
       fetchOptions();
@@ -228,8 +209,11 @@ const Booklets = () => {
     try {
       const currentValue = options[activeOptionsTab];
       const index = currentValue.indexOf(editOptionValue);
-      const apiFunction = getOptionApiFunction("update");
-      const response = await apiFunction(index, { value: editOptionValue });
+      const response = await bookletOptionsAPI.updateGenericOption(
+        activeOptionsTab,
+        index,
+        { value: editOptionValue },
+      );
       setEditingOption(null);
       fetchOptions();
 
@@ -251,29 +235,10 @@ const Booklets = () => {
     try {
       const currentValue = options[activeOptionsTab];
       const index = currentValue.indexOf(value);
-      const apiFunction = getOptionApiFunction("delete");
-      let response;
-
-      // Check if it's a dynamic category (not in predefined list)
-      const predefinedCategories = [
-        "bookSizes",
-        "bindingTypes",
-        "coverStyles",
-        "printColors",
-        "paperWeights",
-        "paperTypes",
-        "coverFinishes",
-        "pageEdges",
-        "packaging",
-        "specialFinishing",
-      ];
-
-      if (predefinedCategories.includes(activeOptionsTab)) {
-        response = await apiFunction(index);
-      } else {
-        // For dynamic categories, pass the category name
-        response = await apiFunction(activeOptionsTab, index);
-      }
+      const response = await bookletOptionsAPI.deleteGenericOption(
+        activeOptionsTab,
+        index,
+      );
 
       fetchOptions();
 
@@ -289,81 +254,12 @@ const Booklets = () => {
     }
   };
 
-  const getOptionApiFunction = (action) => {
-    const apiMap = {
-      bookSizes: {
-        add: bookletOptionsAPI.addBookSize,
-        update: bookletOptionsAPI.updateBookSize,
-        delete: bookletOptionsAPI.deleteBookSize,
-      },
-      bindingTypes: {
-        add: bookletOptionsAPI.addBindingType,
-        update: bookletOptionsAPI.updateBindingType,
-        delete: bookletOptionsAPI.deleteBindingType,
-      },
-      coverStyles: {
-        add: bookletOptionsAPI.addCoverStyle,
-      },
-      printColors: {
-        add: bookletOptionsAPI.addPrintColor,
-      },
-      paperWeights: {
-        add: bookletOptionsAPI.addPaperWeight,
-      },
-      paperTypes: {
-        add: bookletOptionsAPI.addPaperType,
-        update: bookletOptionsAPI.updatePaperType,
-        delete: bookletOptionsAPI.deletePaperType,
-      },
-      coverFinishes: {
-        add: bookletOptionsAPI.addCoverFinish,
-        update: bookletOptionsAPI.updateCoverFinish,
-        delete: bookletOptionsAPI.deleteCoverFinish,
-      },
-      pageEdges: {
-        add: bookletOptionsAPI.addPageEdge,
-        update: bookletOptionsAPI.updatePageEdge,
-        delete: bookletOptionsAPI.deletePageEdge,
-      },
-      packaging: {
-        add: bookletOptionsAPI.addPackaging,
-      },
-      specialFinishing: {
-        add: bookletOptionsAPI.addSpecialFinishing,
-      },
-    };
-
-    // Check if it's a predefined category
-    if (apiMap[activeOptionsTab]) {
-      return apiMap[activeOptionsTab]?.[action] || null;
-    }
-
-    // For dynamic/custom categories, use generic endpoints
-    // These will be added to the backend routes
-    const genericApiMap = {
-      add: bookletOptionsAPI.addGenericOption,
-      update: bookletOptionsAPI.updateGenericOption,
-      delete: bookletOptionsAPI.deleteGenericOption,
-    };
-
-    return genericApiMap[action] || null;
-  };
-
   // ==================== CATEGORY MANAGEMENT FUNCTIONS ====================
 
   const handleAddCategory = async (e) => {
     e.preventDefault();
     if (!newCategoryName.trim()) {
       showToast("Category name is required", "error");
-      return;
-    }
-
-    const validNameRegex = /^[a-z][a-zA-Z0-9]*$/;
-    if (!validNameRegex.test(newCategoryName)) {
-      showToast(
-        "Category name must start with lowercase letter and contain only letters/numbers",
-        "error",
-      );
       return;
     }
 
@@ -426,31 +322,22 @@ const Booklets = () => {
     }
   };
 
-  // Format label for display
+  // Format label for display (preserve original case, just add spaces before capitals)
   const formatLabel = (id) => {
     let result = "";
     for (let i = 0; i < id.length; i++) {
       const char = id[i];
-      if (char === char.toUpperCase() && char !== char.toLowerCase() && i > 0) {
+      if (
+        char === char.toUpperCase() &&
+        char !== char.toLowerCase() &&
+        i > 0 &&
+        id[i - 1] !== " "
+      ) {
         result += " ";
       }
       result += char;
     }
-    return result.trim().toLowerCase();
-  };
-
-  // Default icons for categories
-  const categoryIcons = {
-    bookSizes: "📏",
-    bindingTypes: "📎",
-    coverStyles: "🎨",
-    printColors: "🌈",
-    paperWeights: "⚖️",
-    paperTypes: "📄",
-    coverFinishes: "✨",
-    pageEdges: "📑",
-    packaging: "📦",
-    specialFinishing: "🌟",
+    return result.trim();
   };
 
   // Dynamic options tabs from backend
@@ -458,7 +345,6 @@ const Booklets = () => {
     ? Object.keys(options).map((key) => ({
         id: key,
         label: formatLabel(key),
-        icon: categoryIcons[key] || "📁",
       }))
     : [];
 
@@ -469,9 +355,6 @@ const Booklets = () => {
       {/* Toast Notification */}
       {toast.show && (
         <div className={`toast-notification ${toast.type}`}>
-          <span className="toast-icon">
-            {toast.type === "success" ? "✅" : "⚠️"}
-          </span>
           <span className="toast-message">{toast.message}</span>
           <button
             className="toast-close"
@@ -516,7 +399,7 @@ const Booklets = () => {
           className={`main-tab ${activeTab === "quotes" ? "active" : ""}`}
           onClick={() => setActiveTab("quotes")}
         >
-          <span className="tab-icon"></span> Quotes
+          <span className="tab-icon">📋</span> Quotes
         </button>
         <button
           className={`main-tab ${activeTab === "options" ? "active" : ""}`}
@@ -528,7 +411,7 @@ const Booklets = () => {
           className={`main-tab ${activeTab === "viewOptions" ? "active" : ""}`}
           onClick={() => setActiveTab("viewOptions")}
         >
-          <span className="tab-icon"></span> View Options
+          <span className="tab-icon">📊</span> View Options
         </button>
       </div>
 
