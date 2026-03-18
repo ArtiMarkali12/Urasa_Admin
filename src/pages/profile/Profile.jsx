@@ -1,23 +1,23 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { adminAPI } from '../../services/api';
-import './Profile.css';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { adminAPI } from "../../services/api";
+import "./Profile.css";
 
 const Profile = () => {
   const navigate = useNavigate();
   const { admin, logout, updateAdminProfile } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    name: admin?.name || '',
-    email: admin?.email || '',
+    name: admin?.name || "",
+    email: admin?.email || "",
   });
   const [passwordData, setPasswordData] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: '',
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
-  const [message, setMessage] = useState({ type: '', text: '' });
+  const [message, setMessage] = useState({ type: "", text: "" });
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
@@ -37,15 +37,18 @@ const Profile = () => {
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage({ type: '', text: '' });
+    setMessage({ type: "", text: "" });
 
     try {
       const response = await adminAPI.updateProfile(formData);
       updateAdminProfile(response.data.data);
-      setMessage({ type: 'success', text: 'Profile updated successfully!' });
+      setMessage({ type: "success", text: "Profile updated successfully!" });
       setIsEditing(false);
     } catch (error) {
-      setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to update profile' });
+      setMessage({
+        type: "error",
+        text: error.response?.data?.message || "Failed to update profile",
+      });
     } finally {
       setLoading(false);
     }
@@ -53,15 +56,18 @@ const Profile = () => {
 
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
-    setMessage({ type: '', text: '' });
+    setMessage({ type: "", text: "" });
 
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      setMessage({ type: 'error', text: 'New passwords do not match' });
+      setMessage({ type: "error", text: "New passwords do not match" });
       return;
     }
 
     if (passwordData.newPassword.length < 6) {
-      setMessage({ type: 'error', text: 'Password must be at least 6 characters' });
+      setMessage({
+        type: "error",
+        text: "Password must be at least 6 characters",
+      });
       return;
     }
 
@@ -72,14 +78,17 @@ const Profile = () => {
         currentPassword: passwordData.currentPassword,
         newPassword: passwordData.newPassword,
       });
-      setMessage({ type: 'success', text: 'Password updated successfully!' });
+      setMessage({ type: "success", text: "Password updated successfully!" });
       setPasswordData({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: '',
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
       });
     } catch (error) {
-      setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to update password' });
+      setMessage({
+        type: "error",
+        text: error.response?.data?.message || "Failed to update password",
+      });
     } finally {
       setLoading(false);
     }
@@ -87,7 +96,7 @@ const Profile = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -99,7 +108,7 @@ const Profile = () => {
 
       {message.text && (
         <div className={`message ${message.type}`}>
-          {message.type === 'success' ? '✅' : '⚠️'} {message.text}
+          {message.type === "success" ? "✅" : "⚠️"} {message.text}
         </div>
       )}
 
@@ -107,27 +116,25 @@ const Profile = () => {
         <div className="profile-card">
           <div className="profile-avatar-section">
             <div className="profile-avatar-large">
-              {admin?.name?.charAt(0).toUpperCase() || 'A'}
+              {admin?.name?.charAt(0).toUpperCase() || "A"}
             </div>
-            <h2>{admin?.name || 'Admin'}</h2>
-            <p className="profile-role-badge">{admin?.role || 'Administrator'}</p>
-            <p className="profile-email">{admin?.email || 'admin@urasa.com'}</p>
+            <h2>{admin?.name || "Admin"}</h2>
+            <p className="profile-role-badge">
+              {admin?.role || "Administrator"}
+            </p>
+            <p className="profile-email">{admin?.email || "admin@urasa.com"}</p>
           </div>
 
           <div className="profile-stats">
             <div className="stat-item">
-              <span className="stat-icon">📊</span>
-              <div>
-                <span className="stat-value">Active</span>
-                <span className="stat-label">Status</span>
-              </div>
+              <span className="stat-label">Status:</span>
+              <span className="stat-value status-active">Active</span>
             </div>
             <div className="stat-item">
-              <span className="stat-icon">🛡️</span>
-              <div>
-                <span className="stat-value">{admin?.role === 'super-admin' ? 'Super' : 'Standard'}</span>
-                <span className="stat-label">Access Level</span>
-              </div>
+              <span className="stat-label">Access Level:</span>
+              <span className="stat-value access-level">
+                {admin?.role === "super-admin" ? "Super" : "Standard"}
+              </span>
             </div>
           </div>
         </div>
@@ -136,11 +143,11 @@ const Profile = () => {
           <div className="form-card">
             <div className="form-header">
               <h3>Edit Profile Information</h3>
-              <button 
-                className={`btn-toggle ${isEditing ? 'active' : ''}`}
+              <button
+                className={`btn-toggle ${isEditing ? "active" : ""}`}
                 onClick={() => setIsEditing(!isEditing)}
               >
-                {isEditing ? 'Cancel' : 'Edit'}
+                {isEditing ? "Cancel" : "Edit"}
               </button>
             </div>
 
@@ -172,7 +179,7 @@ const Profile = () => {
               {isEditing && (
                 <div className="form-actions">
                   <button type="submit" className="btn-save" disabled={loading}>
-                    {loading ? 'Saving...' : '💾 Save Changes'}
+                    {loading ? "Saving..." : "💾 Save Changes"}
                   </button>
                 </div>
               )}
@@ -225,8 +232,12 @@ const Profile = () => {
               </div>
 
               <div className="form-actions">
-                <button type="submit" className="btn-password" disabled={loading}>
-                  {loading ? 'Updating...' : '🔑 Update Password'}
+                <button
+                  type="submit"
+                  className="btn-password"
+                  disabled={loading}
+                >
+                  {loading ? "Updating..." : "🔑 Update Password"}
                 </button>
               </div>
             </form>
@@ -237,7 +248,8 @@ const Profile = () => {
               <h3>⚠️ Danger Zone</h3>
             </div>
             <p className="danger-text">
-              Once you log out, you will need to enter your credentials to access your account again.
+              Once you log out, you will need to enter your credentials to
+              access your account again.
             </p>
             <button className="btn-logout" onClick={handleLogout}>
               🚪 Logout

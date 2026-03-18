@@ -176,7 +176,31 @@ const Booklets = () => {
 
     try {
       const apiFunction = getOptionApiFunction("add");
-      const response = await apiFunction({ value: newOptionValue });
+      let response;
+
+      // Check if it's a dynamic category (not in predefined list)
+      const predefinedCategories = [
+        "bookSizes",
+        "bindingTypes",
+        "coverStyles",
+        "printColors",
+        "paperWeights",
+        "paperTypes",
+        "coverFinishes",
+        "pageEdges",
+        "packaging",
+        "specialFinishing",
+      ];
+
+      if (predefinedCategories.includes(activeOptionsTab)) {
+        response = await apiFunction({ value: newOptionValue });
+      } else {
+        // For dynamic categories, pass the category name
+        response = await apiFunction(activeOptionsTab, {
+          value: newOptionValue,
+        });
+      }
+
       setNewOptionValue("");
       fetchOptions();
 
@@ -228,7 +252,29 @@ const Booklets = () => {
       const currentValue = options[activeOptionsTab];
       const index = currentValue.indexOf(value);
       const apiFunction = getOptionApiFunction("delete");
-      const response = await apiFunction(index);
+      let response;
+
+      // Check if it's a dynamic category (not in predefined list)
+      const predefinedCategories = [
+        "bookSizes",
+        "bindingTypes",
+        "coverStyles",
+        "printColors",
+        "paperWeights",
+        "paperTypes",
+        "coverFinishes",
+        "pageEdges",
+        "packaging",
+        "specialFinishing",
+      ];
+
+      if (predefinedCategories.includes(activeOptionsTab)) {
+        response = await apiFunction(index);
+      } else {
+        // For dynamic categories, pass the category name
+        response = await apiFunction(activeOptionsTab, index);
+      }
+
       fetchOptions();
 
       const message =
@@ -287,7 +333,20 @@ const Booklets = () => {
       },
     };
 
-    return apiMap[activeOptionsTab]?.[action] || null;
+    // Check if it's a predefined category
+    if (apiMap[activeOptionsTab]) {
+      return apiMap[activeOptionsTab]?.[action] || null;
+    }
+
+    // For dynamic/custom categories, use generic endpoints
+    // These will be added to the backend routes
+    const genericApiMap = {
+      add: bookletOptionsAPI.addGenericOption,
+      update: bookletOptionsAPI.updateGenericOption,
+      delete: bookletOptionsAPI.deleteGenericOption,
+    };
+
+    return genericApiMap[action] || null;
   };
 
   // ==================== CATEGORY MANAGEMENT FUNCTIONS ====================
@@ -423,14 +482,33 @@ const Booklets = () => {
         </div>
       )}
 
-      <div className="page-header">
-        <div>
-          <h1>
-            <span className="page-icon">📚</span> Booklet Management
-          </h1>
-          <p>Manage quotes and configuration options</p>
-        </div>
+      {/* Page Header */}
+      {/* <div className="page-header">
+        <div className="page-header-content">
+          <div className="header-top-row">
+            <div className="header-title-section">
+              <span className="title-badge">📚</span> */}
+      <div className="book-header">
+        <h2>Booklet Management</h2>
       </div>
+      {/* </div>
+            <div className="header-actions">
+              <div className="quick-stat">
+                <span className="quick-stat-value">{booklets.length}</span>
+                <span className="quick-stat-label">Booklets</span>
+              </div>
+              <div className="quick-stat">
+                <span className="quick-stat-value">{optionsTabs.length}</span>
+                <span className="quick-stat-label">Categories</span>
+              </div>
+            </div>
+          </div>
+          <p className="header-description">
+            Manage quotes and configuration options
+          </p>
+          <div className="header-divider"></div>
+        </div>
+      </div> */}
 
       {/* Main Tabs */}
       <div className="main-tabs">
@@ -438,7 +516,7 @@ const Booklets = () => {
           className={`main-tab ${activeTab === "quotes" ? "active" : ""}`}
           onClick={() => setActiveTab("quotes")}
         >
-          <span className="tab-icon">📋</span> Quotes
+          <span className="tab-icon"></span> Quotes
         </button>
         <button
           className={`main-tab ${activeTab === "options" ? "active" : ""}`}
@@ -450,7 +528,7 @@ const Booklets = () => {
           className={`main-tab ${activeTab === "viewOptions" ? "active" : ""}`}
           onClick={() => setActiveTab("viewOptions")}
         >
-          <span className="tab-icon">👁️</span> View Options
+          <span className="tab-icon"></span> View Options
         </button>
       </div>
 
@@ -490,27 +568,27 @@ const Booklets = () => {
                     </div>
                     <div className="card-body">
                       <div className="info-row">
-                        <span className="info-label">📧 Email</span>
+                        <span className="info-label">Email</span>
                         <span className="info-value">
                           {booklet.customerDetails?.email}
                         </span>
                       </div>
                       <div className="info-row">
-                        <span className="info-label">📱 Phone</span>
+                        <span className="info-label">Phone</span>
                         <span className="info-value">
                           {booklet.customerDetails?.phone}
                         </span>
                       </div>
                       <div className="info-row">
-                        <span className="info-label">📊 Quantity</span>
+                        <span className="info-label">Quantity</span>
                         <span className="info-value">{booklet.quantity}</span>
                       </div>
                       <div className="info-row">
-                        <span className="info-label">📏 Size</span>
+                        <span className="info-label">Size</span>
                         <span className="info-value">{booklet.bookSize}</span>
                       </div>
                       <div className="info-row">
-                        <span className="info-label">📄 Pages</span>
+                        <span className="info-label"> Pages</span>
                         <span className="info-value">
                           {booklet.interiorSpecifications?.numberOfPages ||
                             "N/A"}
@@ -679,13 +757,13 @@ const Booklets = () => {
                                   className="action-btn small edit"
                                   onClick={() => handleEditOption(value)}
                                 >
-                                  ✏️
+                                  Edit
                                 </button>
                                 <button
                                   className="action-btn small delete"
                                   onClick={() => handleDeleteOption(value)}
                                 >
-                                  🗑️
+                                  Delete
                                 </button>
                               </div>
                             </>
@@ -774,59 +852,54 @@ const Booklets = () => {
           onClick={() => setShowAddCategory(false)}
         >
           <div
-            className="modal-content add-category-modal"
+            className="modal-content add-category-modal-simple"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              className="modal-close"
-              onClick={() => setShowAddCategory(false)}
-            >
-              ×
-            </button>
-            <div className="modal-header">
+            <div className="simple-modal-header">
               <h2>Add New Category</h2>
+              <p>Create a new category to manage booklet options</p>
             </div>
 
-            <form className="add-category-form" onSubmit={handleAddCategory}>
-              <div className="modal-body">
-                <div className="form-group">
-                  <label>Category Name (camelCase)</label>
+            <form className="simple-category-form" onSubmit={handleAddCategory}>
+              <div className="simple-form-body">
+                <div className="simple-form-group">
+                  <label>Category Name</label>
                   <input
                     type="text"
                     value={newCategoryName}
                     onChange={(e) => setNewCategoryName(e.target.value)}
-                    placeholder="e.g., paperTextures, foilColors"
+                    placeholder="e.g., paperTextures"
                     required
                   />
-                  <small className="form-hint">
-                    Start with lowercase letter, no spaces or special characters
+                  <small>
+                    Start with lowercase letter, no spaces (camelCase)
                   </small>
                 </div>
 
-                <div className="form-group">
-                  <label>Display Name (optional)</label>
+                <div className="simple-form-group">
+                  <label>
+                    Display Name <span>(optional)</span>
+                  </label>
                   <input
                     type="text"
                     value={newCategoryDisplay}
                     onChange={(e) => setNewCategoryDisplay(e.target.value)}
                     placeholder="e.g., Paper Textures"
                   />
-                  <small className="form-hint">
-                    Leave empty to auto-generate from category name
-                  </small>
+                  <small>Leave empty to auto-generate</small>
                 </div>
               </div>
 
-              <div className="modal-footer">
+              <div className="simple-form-footer">
                 <button
                   type="button"
-                  className="btn-cancel"
+                  className="btn-simple-cancel"
                   onClick={() => setShowAddCategory(false)}
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn-save">
-                  ➕ Add Category
+                <button type="submit" className="btn-simple-create">
+                  Create Category
                 </button>
               </div>
             </form>
@@ -843,9 +916,6 @@ const Booklets = () => {
             </button>
             <div className="modal-header">
               <h2>Booklet Quote Details</h2>
-              <div className="modal-id">
-                #{selectedBooklet._id.slice(-6).toUpperCase()}
-              </div>
             </div>
 
             <div className="modal-body">
@@ -1038,9 +1108,6 @@ const Booklets = () => {
             </button>
             <div className="modal-header">
               <h2>Edit Booklet Quote</h2>
-              <div className="modal-id">
-                #{selectedBooklet._id.slice(-6).toUpperCase()}
-              </div>
             </div>
 
             <form className="edit-form" onSubmit={handleEditSubmit}>

@@ -96,6 +96,13 @@ export const bookletOptionsAPI = {
   // Category management APIs
   addCategory: (data) => api.post("/booklet-quote/category", data),
   deleteCategory: (data) => api.delete("/booklet-quote/category", { data }),
+  // Generic APIs for dynamic categories
+  addGenericOption: (category, data) =>
+    api.post(`/booklet-quote/options/${category}`, data),
+  updateGenericOption: (category, index, data) =>
+    api.put(`/booklet-quote/options/${category}/${index}`, data),
+  deleteGenericOption: (category, index) =>
+    api.delete(`/booklet-quote/options/${category}/${index}`),
 };
 
 // Notebook APIs
